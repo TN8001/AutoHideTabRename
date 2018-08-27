@@ -34,6 +34,14 @@ Visual Studio（以下VS）のツールウィンドウ（[ソリューション 
 * 一切責任持ちません。
 * ウィンドウタイトルを変更しないのは仕様です。
 * アンインストール後にタブ名が元に戻らない場合は、お手数ですが下記のリセットをしてください。
+* ビルドには下記３つの参照が必要です。
+  * `Microsoft.VisualStudio.Diagnostics.Assert.dll`
+  * `Microsoft.VisualStudio.Platform.WindowManagement.dll`
+  * `Microsoft.VisualStudio.Shell.ViewManager.dll`  
+    当方では`C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\`以下にありました。
+
+
+
 
 #### リセット方法
 ほとんどのツールウィンドウは開いた時にタブ名を再設定をしますが、一部戻らないものがありました。  
