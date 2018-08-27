@@ -1,0 +1,89 @@
+﻿<UserControl
+    x:Class="AutoHideTabRename.SettingsControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:AutoHideTabRename"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="200"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style TargetType="{x:Type TextBlock}">
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Foreground" Value="{StaticResource {x:Static SystemColors.GrayTextBrushKey}}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="MinWidth" Value="80" />
+            <Setter Property="Margin" Value="5" />
+        </Style>
+    </UserControl.Resources>
+    <GroupBox>
+        <GroupBox.Header>
+            <CheckBox
+                x:Name="checkBox"
+                VerticalContentAlignment="Center"
+                Content="Rename"
+                IsChecked="{Binding Settings.IsEnabled}" />
+        </GroupBox.Header>
+        <Grid IsEnabled="{Binding Settings.IsEnabled}">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <ListBox
+                x:Name="listBox"
+                Grid.IsSharedSizeScope="True"
+                ItemsSource="{Binding Settings.Items}"
+                SelectedIndex="{Binding Index, Mode=OneTime}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="{x:Type local:TabNameModel}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition SharedSizeGroup="a" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding TargetName}" />
+                            <TextBlock
+                                Grid.Column="1"
+                                Margin="5,0"
+                                Text="-&gt;" />
+                            <TextBlock Grid.Column="2" Text="{Binding NewName}" />
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <StackPanel
+                Grid.Row="1"
+                HorizontalAlignment="Right"
+                Orientation="Horizontal">
+                <Button Click="AddButton_Click" Content=" Add" />
+                <Button Click="DeleteButton_Click" Content=" Delete" />
+            </StackPanel>
+            <GroupBox Grid.Row="2">
+                <GroupBox.Header>
+                    <TextBlock Text="Edit" />
+                </GroupBox.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBox Text="{Binding SelectedItem.TargetName, ElementName=listBox, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}" />
+                    <TextBlock
+                        Grid.Column="1"
+                        Margin="5,0"
+                        VerticalAlignment="Center"
+                        Text="-&gt;" />
+                    <TextBox Grid.Column="2" Text="{Binding SelectedItem.NewName, ElementName=listBox, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}" />
+                </Grid>
+            </GroupBox>
+        </Grid>
+    </GroupBox>
+</UserControl>
