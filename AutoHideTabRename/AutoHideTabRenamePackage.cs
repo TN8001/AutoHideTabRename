@@ -1,13 +1,13 @@
-﻿using EnvDTE;
+﻿using System;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
+using System.Threading;
+using EnvDTE;
 using EnvDTE80;
 using Microsoft;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
-using System;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Runtime.InteropServices;
-using System.Threading;
+
 using Task = System.Threading.Tasks.Task;
 
 namespace AutoHideTabRename
@@ -15,12 +15,11 @@ namespace AutoHideTabRename
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
     [InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)]
     [Guid(PackageGuidString)]
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
     [ProvideOptionPage(typeof(SettingsPage), "AutoHide Tabs Rename", "General", 0, 0, true)]
-#pragma warning disable VSSDK004 // Use BackgroundLoad flag in ProvideAutoLoad attribute for asynchronous auto load.
-    [ProvideAutoLoad(UIContextGuids.NoSolution)]
-#pragma warning restore VSSDK004
-    public sealed partial class AutoHideTabRename : AsyncPackage
+    //[ProvideAutoLoad(VSConstants.UICONTEXT.SolutionOpening_string, PackageAutoLoadFlags.BackgroundLoad)]
+    [ProvideAutoLoad(UIContextGuids80.NoSolution, PackageAutoLoadFlags.BackgroundLoad)]
+    [ProvideAutoLoad(UIContextGuids80.SolutionExists, PackageAutoLoadFlags.BackgroundLoad)]
+    public sealed class AutoHideTabRenamePackage : AsyncPackage
     {
         public const string PackageGuidString = "465005c4-88e8-410b-a72c-4b37ac15bec6";
 
@@ -32,8 +31,10 @@ namespace AutoHideTabRename
 
         protected override async Task InitializeAsync(CancellationToken token, IProgress<ServiceProgressData> progress)
         {
-            await JoinableTaskFactory.SwitchToMainThreadAsync(token);
+            await base.InitializeAsync(token, progress);
+            Debug.WriteLine("InitializeAsync");
 
+            await JoinableTaskFactory.SwitchToMainThreadAsync();
             page = GetDialogPage(typeof(SettingsPage)) as SettingsPage;
             page.NameChanged += NameChanged;
 
@@ -47,6 +48,8 @@ namespace AutoHideTabRename
             Assumes.Present(dte);
             dteEvents = dte.Events.DTEEvents;
             dteEvents.ModeChanged += DteEvents_ModeChanged;
+
+            Debug.WriteLine("InitializeAsync !");
         }
 
         private void DteEvents_ModeChanged(vsIDEMode LastMode)

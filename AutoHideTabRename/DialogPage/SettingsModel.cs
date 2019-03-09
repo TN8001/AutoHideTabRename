@@ -1,5 +1,4 @@
-﻿using AutoHideTabRename.Utility;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime.Serialization;
 
@@ -37,6 +36,7 @@ namespace AutoHideTabRename
                 new TabNameModel("ライブ プロパティ エクスプローラー", "ライブ プロパティ"),
             };
         }
+
         // 重複を削除 上が優先
         public void Distinct()
         {

@@ -8,7 +8,6 @@ namespace AutoHideTabRename
     {
         private IList items => ((ViewModel)DataContext).Settings.Items;
 
-
         public SettingsControl() => InitializeComponent();
 
         private void AddButton_Click(object sender, RoutedEventArgs e)

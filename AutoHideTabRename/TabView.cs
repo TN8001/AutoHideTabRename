@@ -1,9 +1,9 @@
-﻿using AutoHideTabRename.Utility;
-using Microsoft.VisualStudio.Platform.WindowManagement;
-using Microsoft.VisualStudio.Shell.Interop;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using AutoHideTabRename.Utility;
+using Microsoft.VisualStudio.Platform.WindowManagement;
+using Microsoft.VisualStudio.Shell.Interop;
 
 namespace AutoHideTabRename
 {
@@ -20,7 +20,7 @@ namespace AutoHideTabRename
 
         private TabView(IVsWindowFrame frame)
         {
-            this.frame = frame ?? throw new ArgumentNullException(nameof(frame)); ;
+            this.frame = frame ?? throw new ArgumentNullException(nameof(frame)); 
 
             var defaultName = frame.GetCaption();
             var title = frame.GetToolWindowView().GetShortTitle();
@@ -74,7 +74,9 @@ namespace AutoHideTabRename
 
         private void Rename(IVsWindowFrame frame)
         {
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+            if(frame == null) throw new ArgumentNullException(nameof(frame));
+
+            //Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
 
             if(names.ContainsKey(originalName))
                 SetName(names[originalName]);

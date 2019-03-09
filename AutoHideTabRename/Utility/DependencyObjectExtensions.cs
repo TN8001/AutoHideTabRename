@@ -13,8 +13,6 @@ namespace AutoHideTabRename.Utility
             if(obj == null) throw new ArgumentNullException(nameof(obj));
 
             var count = VisualTreeHelper.GetChildrenCount(obj);
-            if(count == 0) yield break;
-
             for(var i = 0; i < count; i++)
             {
                 var child = VisualTreeHelper.GetChild(obj, i);

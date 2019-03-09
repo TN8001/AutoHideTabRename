@@ -1,12 +1,12 @@
-﻿using AutoHideTabRename.Utility;
-using Microsoft.VisualStudio.Platform.WindowManagement;
-using Microsoft.VisualStudio.PlatformUI.Shell.Controls;
-using Microsoft.VisualStudio.Shell.Interop;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
+using AutoHideTabRename.Utility;
+using Microsoft.VisualStudio.Platform.WindowManagement;
+using Microsoft.VisualStudio.PlatformUI.Shell.Controls;
+using Microsoft.VisualStudio.Shell.Interop;
 
 namespace AutoHideTabRename
 {
@@ -19,7 +19,7 @@ namespace AutoHideTabRename
 
     public class TabMonitor : IVsWindowFrameEvents
     {
-        private List<WindowFrame> tmpFrames = new List<WindowFrame>();
+        private readonly List<WindowFrame> tmpFrames = new List<WindowFrame>();
         private IReadOnlyDictionary<string, string> names;
 
 
@@ -38,7 +38,8 @@ namespace AutoHideTabRename
         }
 
         public void Rename(IReadOnlyDictionary<string, string> names)
-            => TabView.Rename((this.names = names));
+            => TabView.Rename(this.names = names);
+
         public void ForceRename() => TabView.Rename(names);
 
         #region IVsWindowFrameEvents

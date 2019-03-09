@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 
-namespace AutoHideTabRename.Utility
+namespace AutoHideTabRename
 {
     [DataContract]
     public abstract class Observable : INotifyPropertyChanged

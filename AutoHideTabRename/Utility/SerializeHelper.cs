@@ -3,7 +3,6 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Xml;
-using static System.IO.Path;
 
 namespace AutoHideTabRename.Utility
 {
@@ -34,7 +33,7 @@ namespace AutoHideTabRename.Utility
         {
             if(path.IsNullOrEmpty()) path = GetDefaultPath();
 
-            Directory.CreateDirectory(GetDirectoryName(path));
+            Directory.CreateDirectory(Path.GetDirectoryName(path));
 
             var settings = new XmlWriterSettings { Indent = true };
             using(var xw = XmlWriter.Create(path, settings))
@@ -42,6 +41,6 @@ namespace AutoHideTabRename.Utility
         }
 
         private static string GetDefaultPath()
-            => Combine(GetDirectoryName(Assembly.GetExecutingAssembly().Location), "config.xml");
+            => Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "config.xml");
     }
 }

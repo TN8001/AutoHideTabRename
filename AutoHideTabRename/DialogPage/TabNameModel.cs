@@ -1,7 +1,7 @@
-﻿using AutoHideTabRename.Utility;
-using System;
+﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
+using AutoHideTabRename.Utility;
 
 namespace AutoHideTabRename
 {

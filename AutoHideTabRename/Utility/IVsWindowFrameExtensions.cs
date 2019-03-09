@@ -1,7 +1,7 @@
-﻿using Microsoft.VisualStudio.Platform.WindowManagement;
+﻿using System;
+using Microsoft.VisualStudio.Platform.WindowManagement;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
-using System;
 
 namespace AutoHideTabRename.Utility
 {

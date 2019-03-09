@@ -1,12 +1,12 @@
-﻿using AutoHideTabRename.Utility;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using AutoHideTabRename.Utility;
 
 namespace AutoHideTabRename
 {
     public class ViewModel : Observable
     {
-        // オプションページが閉じたときにまるごと上書き（キャンセルでも）
+        // オプションページが閉じた時にまるごと上書き（キャンセルでも）
         public SettingsModel Settings { get => _Settings; set => Set(ref _Settings, value); }
         private SettingsModel _Settings;
 
